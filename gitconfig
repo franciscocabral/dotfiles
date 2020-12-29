@@ -1,0 +1,40 @@
+[core]
+	editor = code --wait
+	preloadindex = true
+	fscache = true
+[user]
+	name = Francisco Cabral
+	email = francisco.cabral@keycar.com.br
+[merge]
+	tool = vscode
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+[diff]
+	tool = vscode
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE=
+[alias]
+	l = log --pretty=format:\"%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) - %C(blue)%an%C(reset)%C(bold yellow)%d%C(reset)\" --decorate --date=short
+	lg = log --graph --abbrev-commit --decorate --format=format:\"%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) - %C(blue)%an%C(reset)%C(bold yellow)%d%C(reset)\" --all
+	a = add
+	ap = add -p
+	c = commit --verbose
+	ca = commit -a --verbose
+	cm = commit -m
+	cam = commit -a -m
+	m = commit --amend --verbose
+	ps = push
+	pl = pull
+	d = diff
+	ds = diff --stat
+	dc = diff --cached
+	s = status
+	ss = status -s
+	ck = checkout
+	ckb = checkout -b
+	ass = checkout *AssemblyInfo.cs
+	st = stash
+	stl = stash list
+	stp = stash pop
+	b = !git for-each-ref --sort=\"-authordate\" --format=\"%(authordate)%09%(objectname:short)%09%(refname)\" refs/heads | sed -e \"s-refs/heads/--\"
+	la = !git config -l | grep alias | cut -c 7-
