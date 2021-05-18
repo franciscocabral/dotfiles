@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -15,7 +8,7 @@ export ZSH="/home/barba/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="bira"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -105,33 +98,28 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
 
-# fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPTS='--height 75% --layout=reverse --border'
-export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:5"
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-export FZF_COMPLETION_TRIGGER=''
-bindkey '^T' fzf-completion
-bindkey '^I' $fzf_default_completion
-#
-
-export NVM_DIR="$HOME/.nvm"
-
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash ] && . /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ] && . /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[ -f /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash ] && . /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash
 
 source ~/shell/main.sh
+
+export PATH="/home/barba/.rbenv/shims:${PATH}"
+export RBENV_SHELL=zsh
+source '/usr/lib/rbenv/libexec/../completions/rbenv.zsh'
+command rbenv rehash 2>/dev/null
+rbenv() {
+  local command
+  command="${1:-}"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  rehash|shell)
+    eval "$(rbenv "sh-$command" "$@")";;
+  *)
+    command rbenv "$command" "$@";;
+  esac
+}

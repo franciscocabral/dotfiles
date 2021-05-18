@@ -1,5 +1,5 @@
 [core]
-	editor = code --wait
+	editor = code-insiders --wait
 	preloadindex = true
 	fscache = true
 [user]
@@ -8,11 +8,11 @@
 [merge]
 	tool = vscode
 [mergetool "vscode"]
-	cmd = code --wait $MERGED
+	cmd = code-insiders --wait $MERGED
 [diff]
 	tool = vscode
 [difftool "vscode"]
-	cmd = code --wait --diff $LOCAL $REMOTE=
+	cmd = code-insiders --wait --diff $LOCAL $REMOTE=
 [alias]
 	l = log --pretty=format:\"%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) - %C(blue)%an%C(reset)%C(bold yellow)%d%C(reset)\" --decorate --date=short
 	lg = log --graph --abbrev-commit --decorate --format=format:\"%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) - %C(blue)%an%C(reset)%C(bold yellow)%d%C(reset)\" --all

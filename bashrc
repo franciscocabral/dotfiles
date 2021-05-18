@@ -1,4 +1,3 @@
-cd ~
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -77,7 +76,7 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
+    alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
@@ -89,7 +88,7 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -117,47 +116,15 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export NVM_DIR="$HOME/.nvm"
+export PATH="${HOME}/.pyenv/bin:${PATH}"
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
-export DOCKER_HOST=tcp://localhost:2375
-sudo mount --bind /mnt/c /c
-sudo mount --bind /mnt/d /d
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash ] && . /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ] && . /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[ -f /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash ] && . /home/barba/.nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash
-
-keycar(){
-  cd /home/barba/__keycar
-}
-
-export DYNAMODB_TABLE="kc-fence-dev"
-# export AWS_ACCESS_KEY_ID="AKIAUOLWSB7HMOLNKMGX"
-# export AWS_SECRET_ACCESS_KEY="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"
-# export AWS_DEFAULT_REGION="us-east-2"
+complete -C /usr/bin/terraform terraform
 
 alias please='sudo'
-
-
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-export PATH=$PATH:$JAVA_HOME/bin
-
-export ANDROID_HOME=~/Android
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-# tabtab source for packages
-# uninstall by removing these lines
-[ -f ~/.config/tabtab/__tabtab.bash ] && . ~/.config/tabtab/__tabtab.bash || true
-
-
 randstr() {
     </dev/urandom tr -dc 'A-Za-z0-9!()*+,-.:;<=>?@[]_{|}' | head -c $1  ; echo
 }
